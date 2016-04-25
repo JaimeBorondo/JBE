@@ -13,6 +13,9 @@ extern "C" FILE * __cdecl __iob_func(void)
 int main(int argc, char* args[]) 
 {
 	WindowManager::Initialize("Engine test", 1280, 720);
+	Input::Init();
+
+	std::vector<unsigned> controllers = Input::GetActiveControllers();
 
 	bool quit = false;
 
@@ -20,13 +23,20 @@ int main(int argc, char* args[])
 	{
 		WindowManager::Update();
 		Input::Update();
+		
+		std::vector<unsigned> controllers_t = Input::GetActiveControllers();
+		
+		if (controllers_t.size() != controllers.size()) 
+		{
+			std::cout << "A controller was ";
+			if (controllers_t.size() > controllers.size())
+				std::cout << "connected." << std::endl;
+			else
+				std::cout << "disconnected." << std::endl;
 
-		if (Input::IsKeyTriggered(SDL_SCANCODE_F))
-			std::cout << "T\n";
-		if (Input::IsKeyPressed(SDL_SCANCODE_F))
-			std::cout << "P";
-		if (Input::IsKeyReleased(SDL_SCANCODE_F))
-			std::cout << "\nR";
+			controllers = controllers_t;
+		}
+
 
 		if (Input::IsKeyTriggered(SDL_SCANCODE_Q))
 			quit = true;

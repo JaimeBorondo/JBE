@@ -32,6 +32,17 @@ public:
 		MOUSE_NUMBTNS = MOUSE_X2
 	};
 
+	struct Gamepad_Axes
+	{
+		float ls_x;
+		float ls_y;
+
+		float rs_x;
+		float rs_y;
+
+		float rt;
+		float lt;
+	};
 
 	/*
 	*	\name	Init
@@ -120,12 +131,10 @@ public:
 	*/
 	static int GetMousePosX();
 	
-
 	/*
 	*	\brief	Returns the Y coordinate for the mouse's position this frame
 	*/
 	static int GetMousePosY();
-
 
 	/*
 	*	\brief	Returns whether the game pad button 'btn' was pressed for the
@@ -271,4 +280,6 @@ private:
 	*	\brief	State of the GamePads this frame
 	*/
 	static char gp_curr_[INPUT_MAX_CONTROLLERS][SDL_CONTROLLER_BUTTON_MAX];
+
+	static Gamepad_Axes gp_axes_[INPUT_MAX_CONTROLLERS];
 };
