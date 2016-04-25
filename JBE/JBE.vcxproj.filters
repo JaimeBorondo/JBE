@@ -18,9 +18,18 @@
     <ClInclude Include="JBEInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JBEWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JBEInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JBEWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
