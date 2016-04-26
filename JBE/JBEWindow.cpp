@@ -37,6 +37,12 @@ void WindowManager::CleanUp()
 	SDL_Quit();
 }
 
+void WindowManager::SetFullscreen(bool fs)
+{
+	Uint32 f = (fs) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+	SDL_SetWindowFullscreen(window_,f);
+}
+
 SDL_Window * WindowManager::GetWindowHandle(void)
 {
 	return window_;

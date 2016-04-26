@@ -39,6 +39,14 @@ public:
 	static void CleanUp();
 
 	/*************************************************************************************/
+	/*
+	\brief
+		Sets the window to fullscreen or regular mode	
+	*/
+	/*************************************************************************************/
+	static void SetFullscreen(bool fs);
+
+	/*************************************************************************************/
 	/*!
 	\brief
 		Gets a pointer to the SDL window structure
