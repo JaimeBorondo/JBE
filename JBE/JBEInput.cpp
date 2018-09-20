@@ -1,6 +1,6 @@
 #include "JBEInput.h"
 
-//Static vars 
+//Static vars
 std::bitset<INPUT_MAX_CONTROLLERS> Input::controllers_active_;
 char Input::kb_prev_[SDL_NUM_SCANCODES];
 char Input::kb_curr_[SDL_NUM_SCANCODES];
@@ -10,7 +10,7 @@ char Input::gp_prev_[INPUT_MAX_CONTROLLERS][SDL_CONTROLLER_BUTTON_MAX];
 char Input::gp_curr_[INPUT_MAX_CONTROLLERS][SDL_CONTROLLER_BUTTON_MAX];
 Input::Gamepad_Axes Input::gp_axes_[INPUT_MAX_CONTROLLERS];
 
-void Input::Init() 
+void Input::Init()
 {
 	std::memset(kb_curr_, 0, SDL_NUM_SCANCODES);
 	std::memset(kb_prev_, 0, SDL_NUM_SCANCODES);
@@ -22,12 +22,12 @@ void Input::Init()
 	{
 		std::memset(gp_prev_[c], 0, SDL_CONTROLLER_BUTTON_MAX);
 		std::memset(gp_curr_[c], 0, SDL_CONTROLLER_BUTTON_MAX);
-		
+
 		gp_axes_[c].ls_x = gp_axes_[c].ls_y = gp_axes_[c].lt =
 		gp_axes_[c].rs_x = gp_axes_[c].rs_y = gp_axes_[c].rt = 0.0f;
 
 		SDL_GameController * gc = SDL_GameControllerOpen(c);
-		controllers_active_.set(c, SDL_GameControllerGetAttached(gc) == SDL_TRUE);			
+		controllers_active_.set(c, SDL_GameControllerGetAttached(gc) == SDL_TRUE);
 	}
 }
 
@@ -146,7 +146,7 @@ std::vector<unsigned> Input::GetActiveControllers()
 {
 	std::vector<unsigned> retval;
 
-	for (unsigned i = 0; i < INPUT_MAX_CONTROLLERS; ++i) 
+	for (unsigned i = 0; i < INPUT_MAX_CONTROLLERS; ++i)
 		if (controllers_active_[i] == 1)
 			retval.push_back(i);
 
@@ -155,7 +155,7 @@ std::vector<unsigned> Input::GetActiveControllers()
 
 bool Input::HandleKeyboardEvent(SDL_Event * ev)
 {
-	switch (ev->type) 
+	switch (ev->type)
 	{
 		case SDL_KEYDOWN:
 			kb_curr_[ev->key.keysym.scancode] = 1;
@@ -202,10 +202,10 @@ bool Input::HandleGamePadEvent(SDL_Event * ev)
 		gp_curr_[ev->cbutton.which][ev->cbutton.button] = 1;
 		break;
 	case SDL_CONTROLLERBUTTONUP:
-		gp_curr_[ev->cbutton.which][ev->cbutton.button] = 1;
+		gp_curr_[ev->cbutton.which][ev->cbutton.button] = 0;
 		break;
 	case SDL_CONTROLLERAXISMOTION:
-		switch (ev->caxis.axis) 
+		switch (ev->caxis.axis)
 		{
 			case SDL_CONTROLLER_AXIS_LEFTX:
 				gp_axes_[ev->caxis.which].ls_x = static_cast<float>(ev->caxis.value) / 32768.0f;
@@ -276,7 +276,7 @@ void Input::UpdateMouse()
 
 void Input::UpdateKeyboard()
 {
-	for (unsigned i = 0; i < SDL_NUM_SCANCODES; ++i) 
+	for (unsigned i = 0; i < SDL_NUM_SCANCODES; ++i)
 	{
 		if (kb_prev_[i] == 0 && kb_curr_[i] == 1)
 			kb_prev_[i] = 1;
